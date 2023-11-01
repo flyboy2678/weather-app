@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
 	const [unit, setUnit] = useState("C");
 	const getData = async () => {
 		const response = await fetch(
-			`http://api.weatherapi.com/v1/forecast.json?key=b0971cdbfeb043c6a4a142111231910&q=${city}&days=3&aqi=no&alerts=no`
+			`http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${city}&days=3&aqi=no&alerts=no`
 		);
 		setWeatherData(await response.json());
 		localStorage.setItem("city", city);
