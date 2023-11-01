@@ -4,7 +4,7 @@ function User() {
 	return (
 		<div>
 			{/* there will be a picture of the user here */}
-			<button>TT</button>
+			{/* <button>TT</button> */}
 		</div>
 	);
 }

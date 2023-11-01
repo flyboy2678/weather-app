@@ -18,3 +18,29 @@
 
 body {
 }
+
+.bar::-webkit-scrollbar {
+	width: 0; /* Remove horizontal scrollbar */
+}
+
+.bar::-webkit-scrollbar-thumb {
+	background: transparent; /* Hide scrollbar thumb */
+}
+
+.compass {
+	width: 200px;
+	height: 200px;
+	border: 2px solid #333;
+	border-radius: 50%;
+	position: relative;
+}
+
+.needle {
+	width: 2px;
+	height: 100px;
+	background-color: red;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform-origin: 50% 100%;
+}
