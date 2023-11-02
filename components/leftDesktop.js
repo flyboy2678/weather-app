@@ -15,7 +15,7 @@ function LeftDesktop() {
 	const fetchCity = async (value) => {
 		try {
 			const response = await fetch(
-				`http://api.weatherapi.com/v1/search.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=${input}`
+				`https://api.weatherapi.com/v1/search.json?key=${process.env.NEXT_PUBLIC_API_KEY}&q=${input}`
 			);
 			const data = await response.json();
 			const results = await data?.filter((city) => {
