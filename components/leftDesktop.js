@@ -3,6 +3,9 @@ import Image from "next/image";
 import { useState, useContext, createContext } from "react";
 import SearchResults from "./searchResults";
 import { CityContext, UnitContext, WeatherContext } from "@/app/layout";
+import { iconLogic } from "@/public/iconLogic";
+import { staticIcons } from "@/public/staticIcons";
+import { animatedIcons } from "@/public/animatedIcons";
 
 export const InputContext = createContext();
 function LeftDesktop() {
@@ -37,6 +40,10 @@ function LeftDesktop() {
 	const minutes = date.getMinutes().toString().padStart(2, "0");
 	// Create a time string in HH:MM format
 	const showTime = `${hours}:${minutes}`;
+	const weatherCode = weatherData?.current?.condition.code;
+	const isDay = weatherData?.current?.is_day;
+	const animatedIcon = iconLogic(weatherCode, animatedIcons, isDay);
+	const staticICon = iconLogic(weatherCode, staticIcons, isDay);
 	return (
 		<div className="flex flex-col min-h-screen max-h-screen w-1/4 p-14 overflow-hidden">
 			<input
@@ -50,7 +57,7 @@ function LeftDesktop() {
 				<SearchResults cities={cities} setCities={setCities} />
 			</InputContext.Provider>
 			<Image
-				src="/animated/cloudy-day-1.svg"
+				src={animatedIcon}
 				width={300}
 				height={300}
 				alt="Weather"
@@ -73,8 +80,7 @@ function LeftDesktop() {
 			<div className="bg-slate-200 h-[1px] mb-10"></div>
 			<div className="flex flex-row items-center">
 				<Image
-					src="/static/day.svg"
-					// src={`http:${weatherData?.current?.condition?.icon}`}
+					src={staticICon}
 					width={64}
 					height={64}
 					alt="Weather Conditions"
@@ -93,7 +99,13 @@ function LeftDesktop() {
 					height={64}
 					alt="rain chance"
 				/>
-				<p>Rain 0%</p>
+				<p>
+					{
+						weatherData?.forecast?.forecastday[0]?.day
+							?.daily_chance_of_rain
+					}{" "}
+					%
+				</p>
 			</div>
 			<div className="w-full h-20 rounded-xl bg-black mt-10 text-white p-4 text-center">
 				<h1>{weatherData?.location?.name}</h1>

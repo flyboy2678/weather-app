@@ -2,6 +2,8 @@
 import HourlyFocust from "@/components/hourlyFocast";
 import { useContext } from "react";
 import { CityContext, UnitContext, WeatherContext } from "./layout";
+import { iconLogic } from "@/public/iconLogic";
+import { staticIcons } from "@/public/staticIcons";
 
 export default function Home() {
 	const [weatherData, setWeatherData] = useContext(WeatherContext);
@@ -15,11 +17,16 @@ export default function Home() {
 		const minutes = parsedDate.getMinutes().toString().padStart(2, "0");
 		// Create a time string in HH:MM format
 		const timeString = `${hours}:${minutes}`;
+		//performing some icon logic
+		const weatherCode = wd.condition.code;
+		const isDay = wd.is_day;
+		const icon = iconLogic(weatherCode, staticIcons, isDay);
 		return (
 			<HourlyFocust
 				key={timeString}
 				hour={timeString}
 				temp={Math.round(unit === "C" ? wd.temp_c : wd.temp_f)}
+				icon={icon}
 			/>
 		);
 	});

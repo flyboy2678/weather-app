@@ -2,6 +2,8 @@
 import DailyFocust from "@/components/dailyFocast";
 import { useContext } from "react";
 import { CityContext, UnitContext, WeatherContext } from "../layout";
+import { iconLogic } from "@/public/iconLogic";
+import { staticIcons } from "@/public/staticIcons";
 
 function Weekly() {
 	const [weatherData, setWeatherData] = useContext(WeatherContext);
@@ -11,7 +13,10 @@ function Weekly() {
 		const dateObject = new Date(wd.date);
 		const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 		const dayOfWeek = daysOfWeek[dateObject.getDay()];
-
+		//some icon logic here
+		const weatherCode = wd.day.condition.code;
+		const isDay = 1;
+		const icon = iconLogic(weatherCode, staticIcons, isDay);
 		return (
 			<DailyFocust
 				key={wd.date}
@@ -22,6 +27,7 @@ function Weekly() {
 				low={Math.round(
 					unit === "C" ? wd.day.maxtemp_c : wd.day.maxtemp_f
 				)}
+				icon={icon}
 			/>
 		);
 	});
