@@ -1,13 +1,13 @@
-import { useContext } from "react";
-import { CityContext } from "@/app/layout";
-import { InputContext } from "./leftDesktop";
+import { useInputStore } from "@/store/input_store";
+import { useWeatherDataStore } from "@/store/weather_data_store";
 
 const City = ({ c, setCities }) => {
-	const [city, setCity] = useContext(CityContext);
-	const setInput = useContext(InputContext);
+	const { setCity } = useWeatherDataStore();
+	const { clearStore } = useInputStore();
+
 	const handleClick = () => {
 		setCity(c.name);
-		setInput("");
+		clearStore();
 		setCities([]);
 	};
 	return (

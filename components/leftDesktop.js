@@ -1,19 +1,17 @@
 "use client";
 import Image from "next/image";
-import { useState, useContext, createContext } from "react";
+import { useState } from "react";
 import SearchResults from "./searchResults";
-import { CityContext, UnitContext, WeatherContext } from "@/app/layout";
 import { iconLogic } from "@/public/iconLogic";
 import { staticIcons } from "@/public/staticIcons";
 import { animatedIcons } from "@/public/animatedIcons";
+import { useWeatherDataStore } from "@/store/weather_data_store";
+import { useInputStore } from "@/store/input_store";
 
-export const InputContext = createContext();
 function LeftDesktop() {
-	const [weatherData, setWeatherData] = useContext(WeatherContext);
-	const [input, setInput] = useState("");
 	const [cities, setCities] = useState([]);
-	const [city, setCity] = useContext(CityContext);
-	const [unit, setUnit] = useContext(UnitContext);
+	const { weatherData, unit } = useWeatherDataStore();
+	const { input, setInput } = useInputStore();
 
 	const fetchCity = async (value) => {
 		try {
@@ -26,7 +24,7 @@ function LeftDesktop() {
 			});
 			setCities(results);
 		} catch (err) {
-			console.log(err);
+			return { err: "An error has occured" };
 		}
 	};
 
@@ -53,9 +51,7 @@ function LeftDesktop() {
 				value={input}
 				onChange={(e) => handleChange(e.target.value)}
 			/>
-			<InputContext.Provider value={setInput}>
-				<SearchResults cities={cities} setCities={setCities} />
-			</InputContext.Provider>
+			<SearchResults cities={cities} setCities={setCities} />
 			<Image
 				src={animatedIcon}
 				width={300}

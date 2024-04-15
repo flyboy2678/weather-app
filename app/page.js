@@ -1,13 +1,11 @@
 "use client";
 import HourlyFocust from "@/components/hourlyFocast";
-import { useContext } from "react";
-import { CityContext, UnitContext, WeatherContext } from "./layout";
 import { iconLogic } from "@/public/iconLogic";
 import { staticIcons } from "@/public/staticIcons";
+import { useWeatherDataStore } from "@/store/weather_data_store";
 
 export default function Home() {
-	const [weatherData, setWeatherData] = useContext(WeatherContext);
-	const [unit, setUnit] = useContext(UnitContext);
+	const { weatherData, unit } = useWeatherDataStore();
 
 	const components = weatherData.forecast?.forecastday[0]?.hour?.map((wd) => {
 		const date = wd.time;

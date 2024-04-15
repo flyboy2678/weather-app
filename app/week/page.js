@@ -1,13 +1,11 @@
 "use client";
 import DailyFocust from "@/components/dailyFocast";
-import { useContext } from "react";
-import { CityContext, UnitContext, WeatherContext } from "../layout";
 import { iconLogic } from "@/public/iconLogic";
 import { staticIcons } from "@/public/staticIcons";
+import { useWeatherDataStore } from "@/store/weather_data_store";
 
 function Weekly() {
-	const [weatherData, setWeatherData] = useContext(WeatherContext);
-	const [unit, setUnit] = useContext(UnitContext);
+	const { weatherData, unit } = useWeatherDataStore();
 
 	const components = weatherData.forecast?.forecastday?.map((wd) => {
 		const dateObject = new Date(wd.date);
